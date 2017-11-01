@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/jq/jquery-1.11.3.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        #xia{
+            width: 380px;
+            height: 200px;
+            margin-left: 50px;
+            border: 2px solid #eeeeee;
+        }
+        span{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+            <input type="text" class="form-control" placeholder="Search for...">
+        </div><!-- /input-group -->
+        <div id="xia" style="display: none"></div>
+    </div><!-- /.col-lg-6 -->
+
+</div><!-- /.row -->
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $('.btn').click(function(){
+            var use=$(".form-control").val()
+            $("#xia").slideDown()
+            $.ajax({
+                url:'http://localhost:3000/item/cha',
+                type:'post',
+                dataType:'json',
+                data:{
+                    use:use
+                },
+                success:function(e){
+                    console.log(e)
+                    $("#xia").html("")
+                    for(var i in e){
+
+                        $("#xia").append("<p>name:<span>"+e[i].name+"</span>"+"delt:"+"<span>"+e[i].delt+"</span></p>")
+
+
+                    }
+                }
+            })
+        })
+
+
+    })
+</script>
+
